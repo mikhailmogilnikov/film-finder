@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { createBrowserRouter, Outlet } from "react-router";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 
 import { AddMoviePage } from "~/pages/add-movie";
 import { FeaturedMoviesPage } from "~/pages/featured-movies";

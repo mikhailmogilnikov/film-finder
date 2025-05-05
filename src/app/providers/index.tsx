@@ -1,5 +1,5 @@
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
-import { RouterProvider } from "react-router";
+import { RouterProvider } from "react-router-dom";
 
 import { appRouter } from "~/app/routes";
 
