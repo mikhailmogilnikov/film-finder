@@ -1,13 +1,15 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { LuClock } from "react-icons/lu";
 
 import { GenreChip } from "~/entities/genre";
+import { AddToFeaturedButton } from "~/features/add-movie-to-featured";
 
 import { Movie } from "../../model/movie.type";
 
 type MovieCardProps = Movie;
 
 export function MovieCard(props: MovieCardProps) {
-  const { title, image_url, duration_minutes, genre } = props;
+  const { id, title, image_url, duration_minutes, genre } = props;
 
   return (
     <Flex
@@ -30,9 +32,13 @@ export function MovieCard(props: MovieCardProps) {
         <Text fontSize="lg" fontWeight="medium">
           {title}
         </Text>
-        <Flex justifyContent="space-between">
+        <Flex justifyContent="space-between" alignItems="center">
           <GenreChip genre={genre} />
-          <Text>{duration_minutes} мин.</Text>
+          <Flex gap={2}>
+            <LuClock />
+            <Text>{duration_minutes} мин.</Text>
+          </Flex>
+          <AddToFeaturedButton movieId={id} />
         </Flex>
       </Flex>
     </Flex>

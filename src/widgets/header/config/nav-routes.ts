@@ -6,11 +6,11 @@ export const NAV_ROUTES = [
     label: "Все фильмы",
   },
   {
-    path: APP_ROUTES.ADD_MOVIE,
-    label: "Добавить фильм",
-  },
-  {
     path: APP_ROUTES.FEATURED_MOVIES,
     label: "Избранное",
+  },
+  {
+    path: APP_ROUTES.ADD_MOVIE,
+    label: "Добавить фильм",
   },
 ];
