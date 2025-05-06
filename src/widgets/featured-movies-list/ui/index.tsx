@@ -5,6 +5,8 @@ import { getMoviesList, MovieFeaturedItem } from "~/entities/movie";
 import { useQuery } from "~/shared/api";
 import { FeaturedMoviesService } from "~/shared/lib/services/featured-movies";
 
+import { FeaturedMoviesListSkeleton } from "./skeleton";
+
 export function FeaturedMoviesList() {
   const { data: moviesList, isLoading } = useQuery({
     queryKey: ["featuredMovies"],
@@ -30,6 +32,7 @@ export function FeaturedMoviesList() {
 
   return (
     <Flex gap={8} py={4} direction="column" maxW={597}>
+      {isLoading && <FeaturedMoviesListSkeleton />}
       {featuredMovies.map((movie) => (
         <Fragment key={movie.id}>
           <MovieFeaturedItem
