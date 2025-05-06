@@ -6,5 +6,5 @@ export interface Movie {
   description: string;
   image_url: string;
   duration_minutes: number;
-  genres: Genre[];
+  genre: `${Genre}`;
 }
