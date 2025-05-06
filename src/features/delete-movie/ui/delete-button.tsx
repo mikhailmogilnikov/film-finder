@@ -15,15 +15,19 @@ export function DeleteMovieButton({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = async () => {
-    try {
-      setIsLoading(true);
-      await deleteMovie(movieId);
-      onDelete();
-    } catch {
-      //
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+
+    console.log("delete");
+
+    await deleteMovie(movieId)
+      .then(() => {
+        onDelete();
+      })
+      .catch(() => {
+        //
+      });
+
+    setIsLoading(false);
   };
 
   return (
@@ -32,7 +36,7 @@ export function DeleteMovieButton({
       size="sm"
       colorPalette="blue"
       variant="outline"
-      onClick={void handleDelete}
+      onClick={() => void handleDelete()}
       loading={isLoading}
     >
       Удалить
