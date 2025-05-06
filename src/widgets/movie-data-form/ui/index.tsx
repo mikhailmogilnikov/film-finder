@@ -1,15 +1,17 @@
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 
 import { Movie } from "~/entities/movie";
 
-import { useMovieData } from "../lib/hooks/use-movie-data";
+import { useMovieDataForm } from "../lib/hooks/use-movie-data";
+
+import { MovieDataFormInputs } from "./inputs";
 
 interface MovieDataFormProps {
   movie?: Movie;
 }
 
 export function MovieDataForm(props: MovieDataFormProps) {
-  const ds = useMovieData();
+  const { methods, onSubmit, isFormLoading } = useMovieDataForm(props);
 
   return (
     <Flex
@@ -22,7 +24,24 @@ export function MovieDataForm(props: MovieDataFormProps) {
       borderRadius="lg"
       flexDir="column"
     >
-      <Flex gap={4}>ds</Flex>
+      <form 
+        onSubmit={(e) => {
+          void onSubmit(e);
+        }}
+        noValidate
+      >
+        <MovieDataFormInputs methods={methods} />
+        <Button
+          mt={12}
+          ml={254}
+          variant="solid"
+          colorPalette="blue"
+          type="submit"
+          loading={isFormLoading}
+        >
+          Сохранить
+        </Button>
+      </form>
     </Flex>
   );
 }

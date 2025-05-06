@@ -4,6 +4,7 @@ import {
   Outlet,
   ScrollRestoration,
 } from "react-router-dom";
+import { Center, Spinner, Text } from "@chakra-ui/react";
 
 import { AddMoviePage } from "~/pages/add-movie";
 import { FeaturedMoviesPage } from "~/pages/featured-movies";
@@ -17,10 +18,23 @@ export const appRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <Center h="100vh">
+            <Spinner />
+          </Center>
+        }
+      >
         <ScrollRestoration />
         <Outlet />
       </Suspense>
+    ),
+    errorElement: (
+      <Center h="100vh">
+        <Text fontSize="2xl" fontWeight="bold" color="red.500">
+          Произошла непредвиденная ошибка
+        </Text>
+      </Center>
     ),
     children: [
       {
@@ -43,8 +57,16 @@ export const appRouter = createBrowserRouter([
             element: <FeaturedMoviesPage />,
           },
           {
-            path: "edit-movie/:id",
+            path: "edit-movie/:movieId",
             element: <EditMoviePage />,
+          },
+          {
+            path: "*",
+            element: (
+              <Center h="calc(100vh - 4rem)">
+                <Text>Страница не существует</Text>
+              </Center>
+            ),
           },
         ],
       },

@@ -17,8 +17,6 @@ export function DeleteMovieButton({
   const handleDelete = async () => {
     setIsLoading(true);
 
-    console.log("delete");
-
     await deleteMovie(movieId)
       .then(() => {
         onDelete();

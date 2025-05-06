@@ -30,7 +30,6 @@ export function MovieInfoWidget() {
   }
 
   const handleDelete = () => {
-    console.log("delete");
     void navigate(APP_ROUTES.HOME);
   };
 

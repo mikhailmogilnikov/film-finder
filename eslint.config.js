@@ -19,16 +19,23 @@ export default tseslint.config(
   {
     extends: [
       js.configs.recommended,
-      ...tseslint.configs.strictTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
     ],
-    settings: { react: { version: "19.0" } },
+    settings: {
+      react: { version: "19.0" },
+      "react-x": {
+        version: "19.1.0",
+      },
+    },
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parser: tseslint.parser,
       parserOptions: {
         project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -42,7 +49,7 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      ...reactX.configs["recommended-typescript"].rules,
+      ...reactX.configs["recommended-type-checked"].rules,
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },

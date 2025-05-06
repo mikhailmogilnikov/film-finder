@@ -6,7 +6,7 @@ export function MoviesListSkeleton() {
   return (
     <>
       {skeletons.map((skeleton) => (
-        <Skeleton key={skeleton} w="100%" h={288} />
+        <Skeleton key={skeleton} borderRadius="lg" w="100%" h={292} />
       ))}
     </>
   );
