@@ -26,6 +26,8 @@ export function MovieCard(props: MovieCardProps) {
           objectFit="cover"
           w="100%"
           h="100%"
+          borderBottom="1px solid"
+          borderColor="gray.200"
         />
       </Box>
       <Flex direction="column" p={4} gap={4}>

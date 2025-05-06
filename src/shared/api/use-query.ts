@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 interface UseQueryArgs<T> {
   queryKey: string[];
   queryFn: () => Promise<T>;
-  initialData: T;
+  initialData?: T;
 }
 
 export const useQuery = <T>({
@@ -11,7 +11,7 @@ export const useQuery = <T>({
   queryKey,
   initialData,
 }: UseQueryArgs<T>) => {
-  const [data, setData] = useState<T>(initialData);
+  const [data, setData] = useState<T | undefined>(initialData);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 

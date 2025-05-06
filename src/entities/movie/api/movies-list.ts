@@ -5,7 +5,6 @@ import { Movie } from "~/entities/movie";
 export const getMoviesList = async (
   genres: string[] | undefined = undefined
 ) => {
-  console.log(genres);
   const response = await apiInstance.get<{ movies: Movie[] }>(
     API_ENDPOINTS.MOVIES,
     {

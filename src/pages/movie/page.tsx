@@ -1,3 +1,5 @@
+import { MovieInfoWidget } from "~/entities/movie";
+
 export default function MoviePage() {
-  return <div>Movie</div>;
+  return <MovieInfoWidget />;
 }

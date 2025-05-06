@@ -10,7 +10,10 @@ interface MovieFeaturedItemProps extends Movie {
 }
 
 export function MovieFeaturedItem(props: MovieFeaturedItemProps) {
-  const handleRemove = () => {
+  const handleRemove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     FeaturedMoviesService.removeFeaturedMovie(props.id);
     props.onRemove?.(props.id);
   };

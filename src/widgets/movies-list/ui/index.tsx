@@ -22,7 +22,7 @@ export function MoviesList() {
       {isLoading ? (
         <MoviesListSkeleton />
       ) : (
-        moviesList.movies.map((movie) => (
+        moviesList?.movies.map((movie) => (
           <GridItem key={movie.id}>
             <Link aria-label={movie.title} to={APP_ROUTES.MOVIE(movie.id)}>
               <MovieCard {...movie} />

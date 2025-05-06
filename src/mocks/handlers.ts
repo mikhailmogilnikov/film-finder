@@ -3,7 +3,6 @@ import { delay, http, HttpResponse } from "msw";
 import { API_ENDPOINTS } from "~/shared/api";
 import { Movie } from "~/entities/movie";
 
-// Функция для создания полного пути API с префиксом /api
 const apiPath = (path: string): string => `/api${path}`;
 
 const moviesList: Movie[] = [
@@ -107,6 +106,87 @@ export const handlers = [
     
     return HttpResponse.json<{ movies: Movie[] }>({
       movies: filteredMovies,
+    });
+  }),
+  
+  http.get(`${apiPath(API_ENDPOINTS.MOVIES)}/:id`, ({ params }) => {
+    const { id } = params;
+    const movie = moviesList.find((movie) => movie.id === id);
+    
+    if (!movie) {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: 'Фильм не найден',
+      });
+    }
+    
+    return HttpResponse.json<{ movie: Movie }>({
+      movie,
+    });
+  }),
+
+  // Добавление фильма
+  http.post(apiPath(API_ENDPOINTS.MOVIES), async ({ request }) => {
+    const newMovie = await request.json() as Omit<Movie, "id">;
+    
+    // Генерация уникального ID для нового фильма
+    const newId = (parseInt(moviesList[moviesList.length - 1].id) + 1).toString();
+    
+    const movieToAdd: Movie = {
+      ...newMovie,
+      id: newId,
+    };
+    
+    moviesList.push(movieToAdd);
+    
+    return HttpResponse.json<{ movie: Movie }>({
+      movie: movieToAdd,
+    }, { status: 201 });
+  }),
+  
+  // Редактирование фильма
+  http.patch(`${apiPath(API_ENDPOINTS.MOVIES)}/:id`, async ({ request, params }) => {
+    const { id } = params;
+    const updates = await request.json() as Partial<Omit<Movie, "id">>;
+    
+    const movieIndex = moviesList.findIndex((movie) => movie.id === id);
+    
+    if (movieIndex === -1) {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: 'Фильм не найден',
+      });
+    }
+    
+    // Обновляем фильм
+    moviesList[movieIndex] = {
+      ...moviesList[movieIndex],
+      ...updates,
+    };
+    
+    return HttpResponse.json<{ movie: Movie }>({
+      movie: moviesList[movieIndex],
+    });
+  }),
+  
+  // Удаление фильма
+  http.delete(`${apiPath(API_ENDPOINTS.MOVIES)}/:id`, ({ params }) => {
+    const { id } = params;
+    const movieIndex = moviesList.findIndex((movie) => movie.id === id);
+    
+    if (movieIndex === -1) {
+      return new HttpResponse(null, {
+        status: 404,
+        statusText: 'Фильм не найден',
+      });
+    }
+    
+    // Удаляем фильм из списка
+    const deletedMovie = moviesList.splice(movieIndex, 1)[0];
+    
+    return HttpResponse.json<{ success: boolean, movie: Movie }>({
+      success: true,
+      movie: deletedMovie,
     });
   }),
 ];
